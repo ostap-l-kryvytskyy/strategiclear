@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Ostap Kryvytskyy
+      changes:
+        - createTable:
+            tableName: treatment_plan
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ACTION
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PATIENT
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: START_TIME
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: END_TIME
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+              - column:
+                  name: RECURRENCE_PATTERN
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: treatment_task
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: treatment_plan_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_treatment_plan
+                    referencedTableName: treatment_plan
+                    referencedColumnNames: id
+              - column:
+                  name: START_TIME
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
