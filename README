@@ -1,0 +1,75 @@
+### Software is provided as is. Author is not responsible for any losses you might experience while working with this
+program.
+
+Please read the following original README file for instructions how to use and make sense of the original program.
+
+**Setup Instructions for the Backend (Including H2)**
+
+### Prerequisites
+1. **Java Development Kit (JDK):** Ensure JDK 11 or higher is installed. I used Amazon Corretto 23.0.2.
+2. **Maven:** Install Apache Maven for dependency management and build.
+3. **Docker:** Install Docker and ensure it is capable of running.
+    I used Docker for imaging and programming platform virtualization.
+4. (optional) **IntelliJ Idea:** Install Idea Community if not present. I used latest IntelliJ Idea Ultimate Edition.
+
+### Running the program and verification of the results
+1. Unzip zipped project folder file strategiclear.zip, that you received, into IdeaProjects/strategiclear folder.
+2. cd into the unzipped project folder.
+     cd IdeaProjects/strategiclear
+3. In the folder **Rebuild the Project if needed:**
+   ```
+   mvn clean install
+   ```
+4. **Run the Docker Application:**
+   ```
+   docker-compose up --build
+   ```
+   The backend will be available right immediately after the server starts. Meaning scheduler starts immediately
+   searching for active tasks to create. Also scheduler configuration is setup to run a scheduler every 5 minutes.
+---
+
+**Instructions for Running Tests**
+  Tests are always running on each build. But here are instructions for running them explicitly.
+1. **Ensure the Environment is Set Up:**
+   - No active H2 connection is required for tests as the application uses an in-memory H2 database during testing.
+
+2. **Run Tests:**
+   ```
+   mvn test
+   ```
+
+3. **Verify Results:**
+   - The test summary will be displayed in the terminal. Ensure all tests pass.
+---
+
+**Software Documentation: Explanation of the TreatmentTaskSchedulerService**
+
+#### **Description**
+This is a simple service, which manipulates Task entries in the database according to the specific Plan entries.
+Service does not create any Tasks if there is no Plans present in the database.
+Service does not create any Tasks for past due Plans.
+Service creates and schedules a Task if it is active in the closest hour for that one run.
+SchedulerConfig makes sure Service runs at fixed rate every 5 minutes.
+Service can handle multiple plans at once if they are currently active.
+It can handle multiple recurrence patterns at once as well, in example "08:00, 10:00" without issues.
+
+If you're interested to check the Service more, you are welcome to edit and extend TreatmentTaskSchedulerServiceTest,
+which allows you to test the functionality yourself and see it in action.
+
+#### **Notes**
+- Service uses Liquibase as a DB initializer, including initial DB preparation, creation of the tables,
+columns, foreign keys and indexes.
+- The service uses embedded in-memory H2 service, which is available only for servicing one program at a time as a
+service. It uses simple locking algorithm to make sure of the data integrity and consistency. If you need to check the
+database state, please use H2 in server mode, which allows multiple connections at a time to one DB.
+- Sometimes due to upper-stated tests fail. Cause is exactly the embedded in-memory DB allows only one program to work
+with a DB at a time. Just make sure you use this DB setup appropriately, close other DB connections and rerun the tests.
+- Other cases might be: other various unforeseen exceptions... Just report them to the author at ostapkr@gmail.com.
+    I'll be happy to help you!
+
+*** Case explanation
+   Expected Output: Correct tasks creation and scheduling based on the programming task description.
+   This functionality is considered important and is implemented in this project.
+
+   Thank you for your time, checking the project results! I hope it brings joy to your eyes!
+   Let me know what you think at ostapkr@gmail.com.
