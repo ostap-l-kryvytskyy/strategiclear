@@ -13,8 +13,8 @@ Please read the following original README file for instructions how to use and m
 4. (optional) **IntelliJ Idea:** Install Idea Community if not present. I used latest IntelliJ Idea Ultimate Edition.
 
 ### Running the program and verification of the results
-1. Unzip zipped project folder file strategiclear.zip, that you received, into IdeaProjects/strategiclear folder.
-2. cd into the unzipped project folder.
+1. Check out the project contents (or unzip zipped project folder file strategiclear.zip you might download or have) into IdeaProjects/strategiclear folder.
+2. cd into the checked out (unzipped) project folder.
      cd IdeaProjects/strategiclear
 3. In the folder **Rebuild the Project if needed:**
    ```
